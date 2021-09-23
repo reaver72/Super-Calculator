@@ -223,6 +223,7 @@ class MyForm(QDialog):
                 self.weather(city)
 
             elif "find" in query or "solve" in query or "evaluate" in query or "calculate" in query or "value" in query or "convert" in query or "simplify" in query or "generate" in query:
+        #  Please use your own API key.. you can get it from wolframalpha site.
                 app_id = "Y98QH3-24PWX83VGA"
                 client = wolframalpha.Client(app_id)
                 query = query.split()[1:]
