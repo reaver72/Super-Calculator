@@ -1,3 +1,7 @@
+# Super-Calculator
+# To know more how to use this calculator, and to see what it can do please visit https://www.wolframalpha.com/examples/
+
+
 from difflib import get_close_matches
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QWidget
