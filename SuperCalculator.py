@@ -313,7 +313,6 @@ class MyForm(QDialog):
         query = query.replace("+", "%2B")
         api_address = f"http://api.wolframalpha.com/v2/query?appid=Y98QH3-24PWX83VGA&input={query}&podstate=Result__Step-by-step+solution&format=plaintext&output=json"
         json_data = requests.get(api_address).json()
-        print(json_data)
         try:
             try:
 
@@ -376,7 +375,6 @@ class MyForm(QDialog):
                 answer = json_data["queryresult"]["pods"][0]["subpods"][0]["plaintext"]
                 answer = answer.replace("sqrt", "√")
                 text = self.ui.lineEditDisplay.toPlainText()
-
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
                 pass
