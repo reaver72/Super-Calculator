@@ -14,6 +14,7 @@ try:
     from PyQt5 import sip
 except ImportError:
     import sip
+#     Add your own dictionary json file path (data.json)
 data = json.load(open("/home/rawbeen/Desktop/Python/NEW PYQT5/data.json"))
 
 sin = math.sin
