@@ -19,7 +19,7 @@ try:
 except ImportError:
     import sip
 #     Add your own dictionary json file path (data.json)
-data = json.load(open("/home/rawbeen/Desktop/Python/NEW PYQT5/data.json"))
+
 
 sin = math.sin
 cos = math.cos
@@ -358,8 +358,7 @@ class MyForm(QDialog):
 
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
-                self.ui.lineEditDisplay.setText(
-                    "Cannot find stepwise solution of this problem")
+                pass
         except:
             self.ui.lineEditDisplay.setText(
                 "Cannot find stepwise solution of this problem")
@@ -370,9 +369,11 @@ class MyForm(QDialog):
         query = query.replace("+", "%2B")
         api_address = f"http://api.wolframalpha.com/v2/query?appid=Y98QH3-24PWX83VGA&input={query}&podstate=Result__Step-by-step+solution&format=plaintext&output=json"
         json_data = requests.get(api_address).json()
+        print(json_data)
         try:
             try:
                 answer = json_data["queryresult"]["pods"][0]["subpods"][0]["plaintext"]
+                print(answer)
                 answer = answer.replace("sqrt", "√")
                 text = self.ui.lineEditDisplay.toPlainText()
                 self.ui.lineEditDisplay.setText(text+answer)
@@ -381,6 +382,7 @@ class MyForm(QDialog):
             try:
                 answer = json_data["queryresult"]["pods"][1]["subpods"][0]["plaintext"]
                 answer = answer.replace("sqrt", "√")
+                print(answer)
                 text = self.ui.lineEditDisplay.toPlainText()
 
                 self.ui.lineEditDisplay.setText(text+answer)
@@ -389,12 +391,12 @@ class MyForm(QDialog):
             try:
                 answer = json_data["queryresult"]["pods"][1]["subpods"][1]["plaintext"]
                 answer = answer.replace("sqrt", "√")
+                print(answer)
                 text = self.ui.lineEditDisplay.toPlainText()
 
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
-                self.ui.lineEditDisplay.setText(
-                    "Cannot find stepwise solution of this problem")
+                pass
         except:
             self.ui.lineEditDisplay.setText(
                 "Cannot find stepwise solution of this problem")
