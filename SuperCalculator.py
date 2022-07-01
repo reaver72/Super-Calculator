@@ -1,7 +1,3 @@
-# Super-Calculator
-# To know more how to use this calculator, and to see what it can do please visit https://www.wolframalpha.com/examples/
-
-
 from difflib import get_close_matches
 import sys
 from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QWidget
@@ -18,8 +14,6 @@ try:
     from PyQt5 import sip
 except ImportError:
     import sip
-#     Add your own dictionary json file path (data.json)
-
 
 sin = math.sin
 cos = math.cos
@@ -44,7 +38,11 @@ class MyForm(QDialog):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-
+        with open(r"Darkeum.qss", "r", ) as f:
+            stylesheet = f.read()
+        self.setWindowIcon(QtGui.QIcon(r"icon.png"))
+        self.setObjectName("Form")
+        self.setStyleSheet(stylesheet)
         self.ui.pushButton1.clicked.connect(self.action1)
         self.ui.pushButton2.clicked.connect(self.action2)
         self.ui.pushButton3.clicked.connect(self.action3)
@@ -227,7 +225,6 @@ class MyForm(QDialog):
                 self.weather(city)
 
             elif "find" in query or "solve" in query or "evaluate" in query or "calculate" in query or "value" in query or "convert" in query or "simplify" in query or "generate" in query:
-        #  Please use your own API key.. you can get it from wolframalpha site.
                 app_id = "Y98QH3-24PWX83VGA"
                 client = wolframalpha.Client(app_id)
                 query = query.split()[1:]
@@ -358,7 +355,8 @@ class MyForm(QDialog):
 
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
-                pass
+                self.ui.lineEditDisplay.setText(
+                    "Cannot find stepwise solution of this problem")
         except:
             self.ui.lineEditDisplay.setText(
                 "Cannot find stepwise solution of this problem")
@@ -369,12 +367,12 @@ class MyForm(QDialog):
         query = query.replace("+", "%2B")
         api_address = f"http://api.wolframalpha.com/v2/query?appid=Y98QH3-24PWX83VGA&input={query}&podstate=Result__Step-by-step+solution&format=plaintext&output=json"
         json_data = requests.get(api_address).json()
-        
         try:
             try:
                 answer = json_data["queryresult"]["pods"][0]["subpods"][0]["plaintext"]
                 answer = answer.replace("sqrt", "√")
                 text = self.ui.lineEditDisplay.toPlainText()
+
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
                 pass
@@ -393,7 +391,8 @@ class MyForm(QDialog):
 
                 self.ui.lineEditDisplay.setText(text+answer)
             except:
-                pass
+                self.ui.lineEditDisplay.setText(
+                    "Cannot find stepwise solution of this problem")
         except:
             self.ui.lineEditDisplay.setText(
                 "Cannot find stepwise solution of this problem")
